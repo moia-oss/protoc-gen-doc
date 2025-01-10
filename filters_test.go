@@ -4,7 +4,7 @@ import (
 	html "html/template"
 	"testing"
 
-	. "github.com/pseudomuto/protoc-gen-doc"
+	. "github.com/moia-oss/protoc-gen-doc"
 	"github.com/stretchr/testify/require"
 )
 

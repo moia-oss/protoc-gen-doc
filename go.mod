@@ -1,4 +1,4 @@
-module github.com/pseudomuto/protoc-gen-doc
+module github.com/moia-oss/protoc-gen-doc
 
 go 1.17
 
@@ -11,7 +11,7 @@ require (
 	github.com/huandu/xstrings v1.4.0 // indirect
 	github.com/imdario/mergo v0.3.13 // indirect
 	github.com/mwitkow/go-proto-validators v0.3.2
-	github.com/pseudomuto/protokit v0.2.0
+	github.com/moia-oss/protokit v0.2.0
 	github.com/stretchr/testify v1.8.4
 )
 

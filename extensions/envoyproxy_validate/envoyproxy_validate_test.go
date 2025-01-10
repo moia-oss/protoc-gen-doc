@@ -5,8 +5,8 @@ import (
 
 	"github.com/envoyproxy/protoc-gen-validate/validate"
 	"github.com/golang/protobuf/proto"
-	"github.com/pseudomuto/protoc-gen-doc/extensions"
-	. "github.com/pseudomuto/protoc-gen-doc/extensions/lyft_validate"
+	"github.com/moia-oss/protoc-gen-doc/extensions"
+	. "github.com/moia-oss/protoc-gen-doc/extensions/lyft_validate"
 	"github.com/stretchr/testify/require"
 )
 

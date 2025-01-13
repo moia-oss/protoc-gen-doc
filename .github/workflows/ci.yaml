@@ -17,7 +17,9 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go }}
-
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v3
+  
       - name: Tests
         run: |
           make test/units test/bench

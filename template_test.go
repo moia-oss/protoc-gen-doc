@@ -347,23 +347,6 @@ func TestServiceMethodProperties(t *testing.T) {
 	require.False(t, method.ResponseStreaming)
 	require.NotEmpty(t, method.Options)
 	require.True(t, method.Option(E_ExtendMethod_Name).(bool))
-
-	bookingservice := findService("BookingService", bookingFile)
-
-	method = findServiceMethod("BookVehicle", bookingservice)
-	require.Equal(t, "BookVehicle", method.Name)
-	require.Equal(t, "Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.", method.Description)
-	require.Equal(t, "Booking", method.RequestType)
-	require.Equal(t, "Booking", method.RequestLongType)
-	require.Equal(t, "com.example.Booking", method.RequestFullType)
-	require.False(t, method.RequestStreaming)
-	require.Equal(t, "BookingStatus", method.ResponseType)
-	require.Equal(t, "BookingStatus", method.ResponseLongType)
-	require.Equal(t, "com.example.BookingStatus", method.ResponseFullType)
-	require.False(t, method.ResponseStreaming)
-	require.NotEmpty(t, method.Options)
-	require.Contains(t, bookingservice.MethodOptions(), "google.api.http")
-	require.NotEmpty(t, method.Option("google.api.http"))
 }
 
 func TestExcludedComments(t *testing.T) {

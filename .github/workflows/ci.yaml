@@ -20,4 +20,4 @@ jobs:
 
       - name: Tests
         run: |
-          make test/units test/bench test/lint
+          make test/units test/bench

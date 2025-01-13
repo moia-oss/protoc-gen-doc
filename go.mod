@@ -23,7 +23,7 @@ require (
 require (
 	github.com/goreleaser/goreleaser/v2 v2.5.1
 	github.com/haya14busa/goverage v0.0.0-20180129164344-eec3514a20b5
-	github.com/moia-oss/protokit v0.0.0-20250113090052-94c8363b615e
+	github.com/moia-oss/protokit v1.0.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20241104194629-dd2ea8efbc28
 	google.golang.org/protobuf v1.36.2
 )

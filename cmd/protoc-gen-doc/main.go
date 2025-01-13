@@ -14,7 +14,7 @@
 package main
 
 import (
-	"github.com/pseudomuto/protokit"
+	"github.com/moia-oss/protokit"
 
 	"log"
 	"os"
@@ -22,7 +22,6 @@ import (
 	gendoc "github.com/moia-oss/protoc-gen-doc"
 	_ "github.com/moia-oss/protoc-gen-doc/extensions/google_api_http" // imported for side effects
 	_ "github.com/moia-oss/protoc-gen-doc/extensions/lyft_validate"   // imported for side effects
-	_ "github.com/moia-oss/protoc-gen-doc/extensions/validator_field" // imported for side effects
 )
 
 func main() {

@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	. "github.com/moia-oss/protoc-gen-doc"
-	"github.com/pseudomuto/protokit"
-	"github.com/pseudomuto/protokit/utils"
+	"github.com/moia-oss/protokit"
+	"github.com/moia-oss/protokit/utils"
 	"github.com/stretchr/testify/require"
 )
 
@@ -14,7 +14,11 @@ func TestRenderers(t *testing.T) {
 	set, err := utils.LoadDescriptorSet("fixtures", "fileset.pb")
 	require.NoError(t, err)
 
-	os.Mkdir("./tmp", os.ModePerm)
+	tmp_dir := "./tmp"
+	if os.Stat(tmp_dir); os.IsNotExist(err) {
+		err = os.Mkdir(tmp_dir, os.ModePerm)
+		require.NoError(t, err)
+	}
 
 	req := utils.CreateGenRequest(set, "Booking.proto", "Vehicle.proto")
 	result := protokit.ParseCodeGenRequest(req)

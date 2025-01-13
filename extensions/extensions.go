@@ -21,7 +21,8 @@ func Transform(extensions map[string]interface{}) map[string]interface{} {
 	for name, payload := range extensions {
 		transform, ok := transformers[name]
 		if !ok {
-			// No transformer registered, skip.
+			// No transformer registered, add as is.
+			out[name] = payload
 			continue
 		}
 		transformedPayload := transform(payload)

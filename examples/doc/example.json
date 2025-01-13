@@ -130,19 +130,7 @@
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
-              "defaultValue": "",
-              "options": {
-                "validator.field": [
-                  {
-                    "name": "string_not_empty",
-                    "value": true
-                  },
-                  {
-                    "name": "length_lt",
-                    "value": 255
-                  }
-                ]
-              }
+              "defaultValue": ""
             }
           ]
         },
@@ -259,7 +247,15 @@
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
-              "defaultValue": ""
+              "defaultValue": "",
+              "options": {
+                "validate.rules": [
+                  {
+                    "name": "string.min_len",
+                    "value": 2
+                  }
+                ]
+              }
             },
             {
               "name": "address_line_2",

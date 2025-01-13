@@ -235,31 +235,6 @@
           {{$message := .}}
           {{- range .FieldOptions}}
             {{$option := .}}
-            {{if eq . "validator.field" "validate.rules" }}
-            <h4>Validated Fields</h4>
-            <table>
-              <thead>
-                <tr>
-                  <td>Field</td>
-                  <td>Validations</td>
-                </tr>
-              </thead>
-              <tbody>
-              {{range $message.FieldsWithOption .}}
-                <tr>
-                  <td>{{.Name}}</td>
-                  <td>
-                    <ul>
-                    {{range (.Option $option).Rules}}
-                      <li>{{.Name}}: {{.Value}}</li>
-                    {{end}}
-                    </ul>
-                  </td>
-                </tr>
-              {{end}}
-              </tbody>
-            </table>
-            {{else}}
             <h4>Fields with {{.}} option</h4>
             <table>
               <thead>
@@ -277,7 +252,6 @@
               {{end}}
               </tbody>
             </table>
-            {{end}}
           {{end -}}
         {{end}}
 

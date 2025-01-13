@@ -4,7 +4,8 @@ import (
 	"testing"
 
 	. "github.com/moia-oss/protoc-gen-doc"
-	"github.com/pseudomuto/protokit/utils"
+	"github.com/moia-oss/protokit/utils"
+	"github.com/stretchr/testify/require"
 )
 
 func BenchmarkParseCodeRequest(b *testing.B) {
@@ -13,6 +14,7 @@ func BenchmarkParseCodeRequest(b *testing.B) {
 	plugin := new(Plugin)
 
 	for i := 0; i < b.N; i++ {
-		plugin.Generate(req)
+		_, err := plugin.Generate(req)
+		require.NoError(b, err)
 	}
 }

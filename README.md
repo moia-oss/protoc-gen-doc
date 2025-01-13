@@ -1,9 +1,6 @@
 # protoc-gen-doc
 
-[![CI Status][ci-svg]][ci-url]
-[![codecov][codecov-svg]][codecov-url]
-[![GoDoc][godoc-svg]][godoc-url]
-[![Go Report Card][goreport-svg]][goreport-url]
+*Forked from [pseudomoto/protoc-gen-doc](https://github.com/pseudomuto/protoc-gen-doc).*
 
 This is a documentation generator plugin for the Google Protocol Buffers compiler (`protoc`). The plugin can generate
 HTML, JSON, DocBook, and Markdown documentation from comments in your `.proto` files.
@@ -12,17 +9,11 @@ It supports proto2 and proto3, and can handle having both in the same context (s
 
 ## Installation
 
-There is a Docker image available (`docker pull pseudomuto/protoc-gen-doc`) that has everything you need to generate
-documentation from your protos.
+The tool can be installed locally via `go get`. 
 
-If you'd like to install this locally, you can `go get` it.
-
-`go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest`
+`go install github.com/moia-oss/protoc-gen-doc/cmd/protoc-gen-doc@latest`
 
 Alternatively, you can download a pre-built release for your platform from the [releases][] page.
-
-Finally, this plugin is also available on Maven Central. For details about how to use it, check out the [gradle
-example](examples/gradle).
 
 ## Invoking the Plugin
 
@@ -36,64 +27,32 @@ or the name of a file containing a custom [Go template][gotemplate].
 
 If the `source_relative` flag is specified, the output file is written in the same relative directory as the input file.
 
-### Using the Docker Image (Recommended)
+### Simple Usage
+**The plugin executable must be in `PATH` for this to work.**
 
-The docker image has two volumes: `/out` and `/protos` which are the directory to write the documentation to and the
-directory containing your proto files.
-
-You could generate HTML docs for the examples by running the following:
+You could generate HTML documentation for all `.proto` files in the `examples/proto` folder into `examples/doc/index.html` by running the following: 
 
 ```
-docker run --rm \
-  -v $(pwd)/examples/doc:/out \
-  -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc
+  protoc --doc_out=./examples/doc  --doc_opt=html,index.html examples/proto
 ```
 
-By default HTML documentation is generated in `/out/index.html` for all `.proto` files in the `/protos` volume. This can
-be changed by passing the `--doc_opt` parameter to the container.
-
-For example, to generate Markdown for all the examples:
+For example, to generate Markdown for all the examples into `examples/doc/docs.md`:
 
 ```
-docker run --rm \
-  -v $(pwd)/examples/doc:/out \
-  -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=markdown,docs.md
+  protoc --doc_out=./examples/doc --doc_opt=markdown,docs.md examples/proto/*.proto
 ```
 
 You can also generate documentation for a single file. This can be done by passing the file(s) to the command:
-
 ```
-docker run --rm \
-  -v $(pwd)/examples/doc:/out \
-  -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=markdown,docs.md Booking.proto [OPTIONALLY LIST MORE FILES]
+  protoc --doc_out=./examples/doc --doc_opt=markdown,docs.md examples/proto/Booking.proto
 ```
 
 You can also exclude proto files that match specific path expressions. This is done by passing a second option delimited
 by `:`. For example, you can pass any number of comma separated patterns as the second option:
 
 ```
-docker run --rm \
-  -v $(pwd)/examples/doc:/out \
-  -v $(pwd)/examples/proto:/protos \
-  pseudomuto/protoc-gen-doc --doc_opt=:google/*,somepath/*
+  protoc --doc_out=./examples/doc --doc_opt=:google/*,somepath/* examples/proto/*.proto
 ```
-
-_**Remember**_: Paths should be from within the container, not the host!
-
-> NOTE: Due to the way wildcard expansion works with docker you cannot use a wildcard path (e.g. `protos/*.proto`) in
-the file list. To get around this, if no files are passed, the container will generate docs for `protos/*.proto`, which
-can be changed by mounting different volumes.
-
-### Simple Usage
-
-For example, to generate HTML documentation for all `.proto` files in the `proto` directory into `doc/index.html`, type:
-
-    protoc --doc_out=./doc --doc_opt=html,index.html proto/*.proto
-
-The plugin executable must be in `PATH` for this to work. 
 
 ### Using a precompiled binary
 
@@ -196,12 +155,3 @@ Check out the `examples` task in the [Makefile](Makefile) to see how these were 
 [html_preview]:
     https://rawgit.com/pseudomuto/protoc-gen-doc/master/examples/doc/example.html
     "HTML Example Output"
-[codecov-svg]: https://codecov.io/gh/pseudomuto/protoc-gen-doc/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/pseudomuto/protoc-gen-doc
-[godoc-svg]: https://godoc.org/github.com/pseudomuto/protoc-gen-doc?status.svg
-[godoc-url]: https://godoc.org/github.com/pseudomuto/protoc-gen-doc
-[goreport-svg]: https://goreportcard.com/badge/github.com/pseudomuto/protoc-gen-doc
-[goreport-url]: https://goreportcard.com/report/github.com/pseudomuto/protoc-gen-doc
-[ci-svg]: https://github.com/pseudomuto/protoc-gen-doc/actions/workflows/ci.yaml/badge.svg?branch=master
-[ci-url]: https://github.com/pseudomuto/protoc-gen-doc/actions/workflows/ci.yaml
-[releases]: https://github.com/pseudomuto/protoc-gen-doc/releases

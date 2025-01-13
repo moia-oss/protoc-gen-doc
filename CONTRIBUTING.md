@@ -26,7 +26,6 @@ Here are some general guidelines for making PRs for this repo.
 1. GoFmt your code! (see <https://blog.golang.org/go-fmt-your-code> to setup your editor to do this for you).
 1. Be sure to run `make build/examples` so your changes are reflected in the example docs.
 1. Running `make test/docker` should produce the same output as `make build/examples`.
-1. **Ping someone on the PR** (Lots of people, including myself, won't get a notification unless pinged directly).
 
 Every PR should have a well detailed summary of the changes being made and the reasoning behind them. Make sure to add
 at least three sections.

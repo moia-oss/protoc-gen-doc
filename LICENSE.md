@@ -1,5 +1,6 @@
 MIT License
 
+Copyright (c) 2025 MOIA GmbH 
 Copyright (c) 2022 David Muto (pseudomuto)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

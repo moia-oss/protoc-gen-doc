@@ -82,8 +82,9 @@ func flattenRules(prefix string, vv reflect.Value) (rules []ValidateRule) {
 
 func init() {
 	extensions.SetTransformer("validate.rules", func(payload interface{}) interface{} {
-		rules, ok := payload.(*validate.FieldRules)
-		if !ok {
+		rules := &validate.FieldRules{}
+		err := extensions.ConvertIntoProtoMessage(payload, rules)
+		if err != nil {
 			return nil
 		}
 		return ValidateExtension{FieldRules: rules}

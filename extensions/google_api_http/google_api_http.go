@@ -48,8 +48,10 @@ func getRule(r *annotations.HttpRule) (rule HTTPRule) {
 func init() {
 	extensions.SetTransformer("google.api.http", func(payload interface{}) interface{} {
 		var rules []HTTPRule
-		rule, ok := payload.(*annotations.HttpRule)
-		if !ok {
+
+		rule := &annotations.HttpRule{}
+		err := extensions.ConvertIntoProtoMessage(payload, rule)
+		if err != nil {
 			return nil
 		}
 

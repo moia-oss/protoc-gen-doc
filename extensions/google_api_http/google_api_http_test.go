@@ -25,7 +25,10 @@ func TestTransform(t *testing.T) {
 		},
 	}
 
-	transformed := extensions.Transform(map[string]interface{}{"google.api.http": rule})
+	dynamicRule, err := extensions.ConvertToDynamicMessage(rule)
+	require.NoError(t, err)
+
+	transformed := extensions.Transform(map[string]interface{}{"google.api.http": dynamicRule})
 	require.NotEmpty(t, transformed)
 
 	rules := transformed["google.api.http"].(HTTPExtension).Rules

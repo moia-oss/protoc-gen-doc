@@ -7,6 +7,7 @@
 syntax = "proto2";
 
 import "github.com/pseudomuto/protokit/fixtures/extend.proto";
+import "google/api/annotations.proto";
 
 package com.example;
 
@@ -21,6 +22,10 @@ service BookingService {
   /// Used to book a vehicle. Pass in a Booking and a BookingStatus will be returned.
   rpc BookVehicle (Booking) returns (BookingStatus) {
     option (com.pseudomuto.protokit.v1.extend_method) = true;
+    option (google.api.http) = {
+      post: "/api/bookings/vehicle/{vehicle_id}"
+      body: "*"
+    };
   };
 }
 

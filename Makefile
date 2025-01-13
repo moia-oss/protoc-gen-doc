@@ -1,23 +1,26 @@
-GORELEASER_BIN ?= https://github.com/goreleaser/goreleaser/releases/download/v1.5.0/goreleaser_Linux_x86_64.tar.gz
-REVIVE_BIN ?= https://github.com/mgechev/revive/releases/download/v1.1.4/revive_1.1.4_Linux_x86_64.tar.gz
-PROTOC_BIN ?= https://github.com/protocolbuffers/protobuf/releases/download/v3.19.4/protoc-3.19.4-linux-x86_64.zip
+GOVERAGE = github.com/haya14busa/goverage
+GORELEASER = github.com/goreleaser/goreleaser/v2
+
+os := linux
+ifeq ($(shell uname -s), Darwin)
+	os := osx
+endif
+
+processor := aarch_64
+ifeq ($(shell uname -p), x86_64)
+	processor := x86_64
+endif
+
+PROTOC_VERSION = 29.2
+PROTOC = bin/protoc/$(PROTOC_VERSION)/bin/protoc
 
 EXAMPLE_DIR=$(PWD)/examples
 DOCS_DIR=$(EXAMPLE_DIR)/doc
 PROTOS_DIR=$(EXAMPLE_DIR)/proto
 
-EXAMPLE_CMD=bin/protoc --plugin=bin/protoc-gen-doc \
+EXAMPLE_CMD=$(PROTOC) --plugin=bin/protoc-gen-doc \
 	-Ithirdparty -Itmp/googleapis -Iexamples/proto \
 	--doc_out=examples/doc
-
-DOCKER_CMD=docker run --rm \
-	-v $(DOCS_DIR):/out:rw \
-	-v $(PROTOS_DIR):/protos:ro \
-	-v $(EXAMPLE_DIR)/templates:/templates:ro \
-	-v $(PWD)/thirdparty/github.com/mwitkow:/usr/include/github.com/mwitkow:ro \
-	-v $(PWD)/thirdparty/github.com/envoyproxy:/usr/include/github.com/envoyproxy:ro \
-	-v $(PWD)/tmp/googleapis/google/api:/usr/include/google/api:ro \
-	pseudomuto/protoc-gen-doc:latest
 
 BOLD = \033[1m
 CLEAR = \033[0m
@@ -36,7 +39,7 @@ build: ## Build the main binary
 	@echo "$(CYAN)Building binary...$(CLEAR)"
 	@go build -o bin/protoc-gen-doc ./cmd/protoc-gen-doc
 
-build/examples: bin/protoc build tmp/googleapis examples/proto/*.proto examples/templates/*.tmpl ## Build example protos
+build/examples: $(PROTOC) build tmp/googleapis examples/proto/*.proto examples/templates/*.tmpl ## Build example protos
 	@echo "$(CYAN)Making examples...$(CLEAR)"
 	@rm -f examples/doc/*
 	@$(EXAMPLE_CMD) --doc_opt=docbook,example.docbook:Ignore* examples/proto/*.proto
@@ -45,67 +48,32 @@ build/examples: bin/protoc build tmp/googleapis examples/proto/*.proto examples/
 	@$(EXAMPLE_CMD) --doc_opt=markdown,example.md:Ignore* examples/proto/*.proto
 	@$(EXAMPLE_CMD) --doc_opt=examples/templates/asciidoc.tmpl,example.txt:Ignore* examples/proto/*.proto
 
-##@: Dev
-
-dev/docker: bin/protoc tmp/googleapis release/snapshot ## Run bash in the docker container
-	@docker run --rm -it --entrypoint /bin/bash pseudomuto/protoc-gen-doc:latest
-
 ##@: Test
 
 test/bench: ## Run the bench tests
 	@echo "$(CYAN)Running bench tests...$(CLEAR)"
 	@go test -bench=.
 
-test/lint: bin/revive ## Lint all go files
-	@echo "$(CYAN)Linting go files...$(CLEAR)"
-	@bin/revive --config revive.toml ./...
-
 test/units: fixtures/fileset.pb ## Run unit tests
 	@echo "$(CYAN)Running unit tests...$(CLEAR)"
 	@go test -cover -race ./ ./cmd/... ./extensions/...
 
-test/docker: bin/protoc tmp/googleapis release/snapshot ## Run the docker e2e tests
-	@echo "$(CYAN)Running docker e2e tests...$(CLEAR)"
-	@rm -f examples/doc/*
-	@$(DOCKER_CMD) --doc_opt=docbook,example.docbook:Ignore*
-	@$(DOCKER_CMD) --doc_opt=html,example.html:Ignore*
-	@$(DOCKER_CMD) --doc_opt=json,example.json:Ignore*
-	@$(DOCKER_CMD) --doc_opt=markdown,example.md:Ignore*
-	@$(DOCKER_CMD) --doc_opt=/templates/asciidoc.tmpl,example.txt:Ignore*
-
 ##@: Release
 
-release/snapshot: bin/goreleaser ## Create a local release snapshot
+release/snapshot: ## Create a local release snapshot
 	@echo "$(CYAN)Creating snapshot build...$(CLEAR)"
-	@bin/goreleaser --snapshot --rm-dist
+	@go run $(GORELEASER) --snapshot --clean
 
-release/validate: bin/goreleaser ## Run goreleaser checks
+release/validate: ## Run goreleaser checks
 	@echo "$(CYAN)Validating release...$(CLEAR)"
-	@bin/goreleaser check
+	@go run $(GORELEASER) check
 
 ##@: Binaries (local installations in ./bin)
 
-bin/goreleaser: ## Install goreleaser
-	@echo "$(CYAN)Installing goreleaser...$(CLEAR)"
-	@mkdir -p bin
-	@curl -sL $(GORELEASER_BIN) | tar xzf - -C bin
-	@chmod +x bin/goreleaser
-	@rm -rf bin/LICENSE.md bin/README.md bin/completions bin/manpages
-
-bin/revive: ## Install revive
-	@echo "$(CYAN)Installing revive...$(CLEAR)"
-	@mkdir -p bin
-	@curl -sL $(REVIVE_BIN) | tar xzf - -C bin
-	@chmod +x bin/revive
-	@rm -f bin/LICENSE bin/README.md
-
-bin/protoc: ## Install protoc
-	@echo "$(CYAN)Installing protoc...$(CLEAR)"
-	@mkdir -p bin
-	@mkdir -p tmp
-	@curl -sLo tmp/protoc.zip $(PROTOC_BIN)
-	@unzip tmp/protoc.zip -x include/* readme.txt -d .
-	@rm -f tmp/protoc.zip
+$(PROTOC): ## Install protoc compiler
+	mkdir -p $(shell dirname $(PROTOC))
+	curl -o bin/protoc/$(PROTOC_VERSION)/protoc.zip -LO https://github.com/protocolbuffers/protobuf/releases/download/v$(PROTOC_VERSION)/protoc-$(PROTOC_VERSION)-$(os)-$(processor).zip
+	unzip bin/protoc/$(PROTOC_VERSION)/protoc.zip -d bin/protoc/$(PROTOC_VERSION)/
 
 fixtures/fileset.pb: fixtures/*.proto fixtures/generate.go fixtures/nested/*.proto
 	@echo "$(CYAN)Generating fixtures...$(CLEAR)"

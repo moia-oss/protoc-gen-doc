@@ -95,38 +95,14 @@
               "options": {
                 "deprecated": true
               }
-            }
-          ]
-        },
-        {
-          "name": "BookingStatus",
-          "longName": "BookingStatus",
-          "fullName": "com.example.BookingStatus",
-          "description": "Represents the status of a vehicle booking.",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "id",
-              "description": "Unique booking status ID.",
-              "label": "",
-              "type": "int32",
-              "longType": "int32",
-              "fullType": "int32",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
             },
             {
-              "name": "description",
-              "description": "Booking status description. E.g. \"Active\".",
+              "name": "create_time",
+              "description": "Creation Time of this booking.",
               "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
+              "type": "Timestamp",
+              "longType": "google.protobuf.Timestamp",
+              "fullType": "google.protobuf.Timestamp",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -408,6 +384,56 @@
               "type": "Address",
               "longType": "Address",
               "fullType": "com.example.Address",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    },
+    {
+      "name": "ImporterFile.proto",
+      "description": "",
+      "package": "com.example",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "BookingStatus",
+          "longName": "BookingStatus",
+          "fullName": "com.example.BookingStatus",
+          "description": "Represents the status of a vehicle booking.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "Unique booking status ID.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "description",
+              "description": "Booking status description. E.g. \"Active\".",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",

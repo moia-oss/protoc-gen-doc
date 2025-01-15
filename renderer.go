@@ -75,10 +75,12 @@ func (rt RenderType) template() ([]byte, error) {
 }
 
 var funcMap = map[string]interface{}{
-	"p":      PFilter,
-	"para":   ParaFilter,
-	"nobr":   NoBrFilter,
-	"anchor": AnchorFilter,
+	"p":        PFilter,
+	"para":     ParaFilter,
+	"nobr":     NoBrFilter,
+	"anchor":   AnchorFilter,
+	"sample":   SampleGenerator,
+	"unescape": Unescape,
 }
 
 // Processor is an interface that is satisfied by all built-in processors (text, html, and json).
@@ -150,4 +152,9 @@ type jsonRenderer struct{}
 
 func (r *jsonRenderer) Apply(template *Template) ([]byte, error) {
 	return json.MarshalIndent(template, "", "  ")
+}
+
+// Unescape outputs raw content without html escaping
+func Unescape(str string) html_template.HTML {
+	return html_template.HTML(str)
 }

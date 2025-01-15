@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package com.example;
+
+/**
+ * Represents the status of a vehicle booking.
+ */
+ message BookingStatus {
+    int32 id           = 1; /// Unique booking status ID.
+    string description = 2; /// Booking status description. E.g. "Active".
+  }

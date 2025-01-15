@@ -147,6 +147,24 @@ type File struct {
 // Option returns the named option.
 func (f File) Option(name string) interface{} { return f.Options[name] }
 
+func (f File) GetMessage(name string) *Message {
+	for _, mes := range f.Messages {
+		if mes.FullName == name {
+			return mes
+		}
+	}
+	return nil
+}
+
+func (f File) GetEnum(name string) *Enum {
+	for _, enum := range f.Enums {
+		if enum.FullName == name {
+			return enum
+		}
+	}
+	return nil
+}
+
 // FileExtension contains details about top-level extensions within a proto(2) file.
 type FileExtension struct {
 	Name               string `json:"name"`

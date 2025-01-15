@@ -69,46 +69,11 @@
               <entry><emphasis>Deprecated.</emphasis><para>Color preference of the customer.</para></entry>
             </row>
             
-          </tbody>
-        </tgroup>
-      </table>
-      
-      
-    </section>
-    
-    <section id="com.example.BookingStatus">
-      <title>BookingStatus</title>
-      <para>Represents the status of a vehicle booking.</para>
-      
-      <table frame="all">
-        <title><classname>BookingStatus</classname> Fields</title>
-        <tgroup cols="4">
-          <colspec colwidth="*"/>
-          <colspec colwidth="*"/>
-          <colspec colwidth="0.5*"/>
-          <colspec colwidth="3*"/>
-          <thead>
             <row>
-              <entry>Field</entry>
-              <entry>Type</entry>
-              <entry>Label</entry>
-              <entry>Description</entry>
-            </row>
-          </thead>
-          <tbody>
-            
-            <row>
-              <entry>id</entry>
-              <entry><link linkend="int32">int32</link></entry>
+              <entry>create_time</entry>
+              <entry><link linkend="google.protobuf.Timestamp">google.protobuf.Timestamp</link></entry>
               <entry></entry>
-              <entry><para>Unique booking status ID.</para></entry>
-            </row>
-            
-            <row>
-              <entry>description</entry>
-              <entry><link linkend="string">string</link></entry>
-              <entry></entry>
-              <entry><para>Booking status description. E.g. "Active".</para></entry>
+              <entry><para>Creation Time of this booking.</para></entry>
             </row>
             
           </tbody>
@@ -348,6 +313,59 @@
               <entry><link linkend="com.example.Address">Address</link></entry>
               <entry>repeated</entry>
               <entry><para>Customer mail addresses, primary first.</para></entry>
+            </row>
+            
+          </tbody>
+        </tgroup>
+      </table>
+      
+      
+    </section>
+    
+    
+
+    
+
+    
+  </section>
+  
+  <section>
+    <title>ImporterFile.proto</title>
+    <para></para>
+    
+    <section id="com.example.BookingStatus">
+      <title>BookingStatus</title>
+      <para>Represents the status of a vehicle booking.</para>
+      
+      <table frame="all">
+        <title><classname>BookingStatus</classname> Fields</title>
+        <tgroup cols="4">
+          <colspec colwidth="*"/>
+          <colspec colwidth="*"/>
+          <colspec colwidth="0.5*"/>
+          <colspec colwidth="3*"/>
+          <thead>
+            <row>
+              <entry>Field</entry>
+              <entry>Type</entry>
+              <entry>Label</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            
+            <row>
+              <entry>id</entry>
+              <entry><link linkend="int32">int32</link></entry>
+              <entry></entry>
+              <entry><para>Unique booking status ID.</para></entry>
+            </row>
+            
+            <row>
+              <entry>description</entry>
+              <entry><link linkend="string">string</link></entry>
+              <entry></entry>
+              <entry><para>Booking status description. E.g. "Active".</para></entry>
             </row>
             
           </tbody>

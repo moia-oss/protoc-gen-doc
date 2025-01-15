@@ -183,10 +183,6 @@
                 </li>
               
                 <li>
-                  <a href="#com.example.BookingStatus"><span class="badge">M</span>BookingStatus</a>
-                </li>
-              
-                <li>
                   <a href="#com.example.BookingStatusID"><span class="badge">M</span>BookingStatusID</a>
                 </li>
               
@@ -215,6 +211,21 @@
               
                 <li>
                   <a href="#com.example.Customer"><span class="badge">M</span>Customer</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#ImporterFile.proto">ImporterFile.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#com.example.BookingStatus"><span class="badge">M</span>BookingStatus</a>
                 </li>
               
               
@@ -322,6 +333,13 @@
                   <td><p><strong>Deprecated.</strong> Color preference of the customer. </p></td>
                 </tr>
               
+                <tr>
+                  <td>create_time</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Creation Time of this booking. </p></td>
+                </tr>
+              
             </tbody>
           </table>
 
@@ -344,37 +362,6 @@
               
               </tbody>
             </table>
-          
-
-        
-      
-        <h3 id="com.example.BookingStatus">BookingStatus</h3>
-        <p>Represents the status of a vehicle booking.</p>
-
-        
-          <table class="field-table">
-            <thead>
-              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
-            </thead>
-            <tbody>
-              
-                <tr>
-                  <td>id</td>
-                  <td><a href="#int32">int32</a></td>
-                  <td></td>
-                  <td><p>Unique booking status ID. </p></td>
-                </tr>
-              
-                <tr>
-                  <td>description</td>
-                  <td><a href="#string">string</a></td>
-                  <td></td>
-                  <td><p>Booking status description. E.g. &#34;Active&#34;. </p></td>
-                </tr>
-              
-            </tbody>
-          </table>
-
           
 
         
@@ -613,6 +600,51 @@
                   <td><a href="#com.example.Address">Address</a></td>
                   <td>repeated</td>
                   <td><p>Customer mail addresses, primary first. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="ImporterFile.proto">ImporterFile.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id="com.example.BookingStatus">BookingStatus</h3>
+        <p>Represents the status of a vehicle booking.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Unique booking status ID. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Booking status description. E.g. &#34;Active&#34;. </p></td>
                 </tr>
               
             </tbody>

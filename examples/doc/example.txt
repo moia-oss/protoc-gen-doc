@@ -28,20 +28,7 @@ Vehicles are some cool shit. But drive carefully!
 
 |color_preference | <<string,string>> | |Color preference of the customer.
 
-|===========================================
-
-
-
-=== BookingStatus
-Represents the status of a vehicle booking.
-
-
-|===========================================
-|*Field* |*Type* |*Label* |*Description*
-
-|id | <<int32,int32>> | |Unique booking status ID.
-
-|description | <<string,string>> | |Booking status description. E.g. "Active".
+|create_time | <<google.protobuf.Timestamp,google.protobuf.Timestamp>> | |Creation Time of this booking.
 
 |===========================================
 
@@ -116,6 +103,28 @@ Represents a customer.
 |phone_number | <<string,string>> |repeated |Customer phone numbers, primary first.
 
 |mail_addresses | <<com.example.Address,Address>> |repeated |Customer mail addresses, primary first.
+
+|===========================================
+
+
+
+
+
+
+== ImporterFile.proto
+
+
+
+=== BookingStatus
+Represents the status of a vehicle booking.
+
+
+|===========================================
+|*Field* |*Type* |*Label* |*Description*
+
+|id | <<int32,int32>> | |Unique booking status ID.
+
+|description | <<string,string>> | |Booking status description. E.g. "Active".
 
 |===========================================
 

@@ -1,6 +1,7 @@
 # API Reference
 
 # Table of Contents
+{{$allFiles := .Files}}
 {{range .Files}}
 {{if .HasServices}}
 - Services
@@ -33,6 +34,12 @@
     [{{.ResponseLongType}}](#{{.ResponseLongType | lower | replace "." ""}})
 
 {{ .Description}}
+
+### Example 
+```
+{{sample .RequestFullType $allFiles 4 | unescape }}
+```
+
 {{end}} <!-- end methods -->
 {{end}} <!-- end services -->
 
